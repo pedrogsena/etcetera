@@ -1,0 +1,280 @@
+/* Universidade do Estado da Bahia - UNEB
+   DCET-I - Sistemas de Informação - 2017.1
+   Linguagens de Programação I
+   Pedro Gabriel Sena Cardoso
+   Lista de Exercícios - Alocação Dinâmica */
+   
+#include <stdio.h>
+#include <stdlib.h>
+
+
+/* Questão 1 */
+
+#define TamVetQ1 10
+
+int main(){
+
+  int index, saida=0, *vetor;
+  vetor=(int*)malloc(sizeof(int)*TamVetQ1);
+
+  if(vetor==NULL){
+    saida=1;
+    printf("Memoria insuficiente no heap para alocacao.\n");
+  }
+
+  else{
+
+    for(index=0;index<TamVetQ1;index++) vetor[index]=index+1;
+    printf("Vetor:");
+    for(index=0;index<TamVetQ1;index++) printf(" %d",vetor[index]);
+    printf("\n");
+    free(vetor);
+
+  }
+
+  return saida;
+
+}
+
+
+/* Questão 2 */
+
+typedef char* string;
+
+int main()
+{
+
+    string *vetor;
+    char c,s;
+    int i,j;
+    int conta_letras;
+    int conta_nomes=0;
+    
+    vetor=NULL;
+    do{
+        printf("Informe nome completo (digite <Enter> para sair): ");
+        vetor=(string*)realloc(vetor,(conta_nomes+1)*sizeof(string));
+        if(vetor==NULL){
+            printf("Espaco insuficiente no heap para alocacao.\n");
+            exit(1);
+        }
+
+        vetor[conta_nomes]=NULL;
+        conta_letras=0;
+        do{
+
+            s=fgetc(stdin);
+            if(s=='\n') s='\0';
+            if(conta_letras==0) c=s;
+            
+            vetor[conta_nomes]=(string)realloc(vetor[conta_nomes],(conta_letras+1)*sizeof(char));
+            if(vetor[conta_nomes]==NULL){
+                printf("Espaco insuficiente no heap para alocacao.\n");
+                exit(1);
+            }
+
+            vetor[conta_nomes][conta_letras]=s;
+            if(c!='\0')conta_letras++;
+
+        } while(s!='\0');
+
+        if(c!='\0') conta_nomes++;
+
+    } while(c!='\0');
+
+    if(conta_nomes<=0) printf("Nenhum nome registrado.\n");
+    else{
+
+        printf("\nLista de nomes:\n");
+        for(i=0;i<conta_nomes;i++){
+
+            printf("Nome: ");
+            for(j=0;vetor[i][j]!='\0';j++) printf("%c",vetor[i][j]);
+            printf("\n");
+
+        }
+
+        printf("\n");
+
+    }
+
+    free(vetor);
+    return 0;
+
+}
+
+
+/* Questão 3 */
+
+int main(){
+
+  int index, numero, saida=0, *sequencia;
+
+  printf("Informe numero inteiro N: ");
+  scanf(" %d",&numero);
+
+  if(numero<=0){
+    saida=1;
+    printf("Numero informado invalido.\n");
+  }
+
+  else{
+
+    sequencia=(int*)malloc(sizeof(int)*numero);
+
+    if(sequencia==NULL){
+      saida=1;
+      printf("Memoria insuficiente no heap para alocacao.\n");
+    }
+
+    else{
+
+      printf("Numero valido, informe sequencia a seguir:\n");
+      for(index=0;index<numero;index++){
+        printf("Informe %d-esimo termo: ",index+1);
+        scanf(" %d",sequencia+index);
+      }
+
+      printf("N = %d\nSequencia:",numero);
+      for(index=0;index<numero;index++) printf(" %d",sequencia[index]);
+      printf("\n");
+
+      free(sequencia);
+
+    }
+
+  }
+
+  return saida;
+}
+
+
+/* Questão 4 */
+
+int** gera_matriz(int numero_linhas, int numero_colunas){
+
+  int i,j;
+  int **pp_Matriz;
+
+  pp_Matriz=(int**)malloc(numero_linhas*sizeof(int*));
+  if(pp_Matriz==NULL) return NULL;
+
+  for(i=0;i<numero_linhas;i++){
+
+    pp_Matriz[i]=(int*)malloc(numero_colunas*sizeof(int));
+    if(pp_Matriz[i]==NULL){
+      free(pp_Matriz);
+      return NULL;
+    }
+
+    for(j=0;j<numero_colunas;j++) pp_Matriz[i][j]=i; /* Ou i+1? */
+
+  }
+
+  return pp_Matriz;
+
+}
+
+void imprime_matriz(int **pp_Matriz, int numero_linhas, int numero_colunas){
+
+  int i,j;
+
+  printf("Matriz:\n");
+  for(i=0;i<numero_linhas;i++){
+    for(j=0;j<numero_colunas;j++) printf(" %2d",pp_Matriz[i][j]);
+    printf("\n");
+  }
+  printf("\n");
+
+  return;
+
+}
+
+int main(){
+
+  int **Nova_Matriz;
+  int i, j, numero_linhas, numero_colunas, saida=0;
+
+  printf("Informe numero de linhas da matriz: ");
+  scanf(" %d",&numero_linhas);
+  printf("Informe numero de colunas da matriz: ");
+  scanf(" %d",&numero_colunas);
+
+  if(numero_linhas<=0||numero_colunas<=0){
+    saida=1;
+    printf("Valor(es) informado(s) invalido(s).\n");
+  }
+
+  else{
+
+    Nova_Matriz=gera_matriz(numero_linhas,numero_colunas);
+    if(Nova_Matriz==NULL){
+      saida=1;
+      printf("Memoria insuficiente no heap para alocacao.\n");
+    }
+
+    else{
+      imprime_matriz(Nova_Matriz,numero_linhas,numero_colunas);
+      free(Nova_Matriz);
+    }
+
+  }
+
+  return saida;
+
+}
+
+
+/* Questão 5 */
+
+int main()
+{
+
+    int *vetor;
+    int number,index;
+    int tamanho=0;
+    int qte_dezenas=0;
+    char c;
+    vetor=NULL;
+    
+    do{
+
+        vetor=(int*)realloc(vetor,10*(qte_dezenas+1)*sizeof(int));
+        if(vetor==NULL){
+            printf("Espaco insuficiente no heap para alocacao de memoria.\n");
+            exit(1);
+        }
+
+        for(index=0;index<10;index++){
+
+            do{
+                c=fgetc(stdin);
+            } while(c=='\n');
+
+            if(c<'0'||c>'9'){
+                printf("\nDigito invalido.\n");
+                exit(1);
+            }
+
+            number=atoi(&c);
+            if(number==0) break;
+
+            vetor[index+10*qte_dezenas]=number;
+            tamanho++;
+
+        }
+
+        if(number!=0) qte_dezenas++;
+
+    } while(number!=0);
+
+    printf("Vetor: ");
+    for(index=0;index<tamanho;index++) printf(" %d",vetor[index]);
+    printf("\n\n");
+
+    free(vetor);
+    return 0;
+
+}
+
+
