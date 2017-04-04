@@ -4,6 +4,10 @@ For: unrelated stuff
 
 By: Pedro Gabriel Sena Cardoso
 
+4/3/2017, 22:34:
+
+lista_exercicios_alocacao_dinamica.txt added, README.md changed
+
 4/1/2017, 11:50:
 
 Funcao_Exclui_Matricula.c and exclui_matric_lista_ligada_hc.c added, README.md changed
