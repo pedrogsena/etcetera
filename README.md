@@ -4,6 +4,10 @@ For: unrelated stuff
 
 By: Pedro Gabriel Sena Cardoso
 
+4/5/2017, 19:10:
+
+prova-2016-1-unidade-2.c added, README.md changed
+
 4/3/2017, 22:34:
 
 lista_exercicios_alocacao_dinamica.txt added, README.md changed
