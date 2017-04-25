@@ -15,8 +15,9 @@ typedef struct partido {
 int main() {
   partido *Tabela;
   char legenda[Tam_Max_Legenda];
-  int i = 0, tamstr, totaldeps, numpartidos = Tam_Bloco, j, totalsim = 0, totalnao = 0, totalabst = 0, totalgeral, totalvotosporpartido, faltosos;
-	float para_impressao;
+  int i = 0, tamstr, totaldeps, numpartidos = Tam_Bloco, j;
+  int totalsim = 0, totalnao = 0, totalabst = 0, totalgeral, totalvotosporpartido, faltosos;
+  float para_impressao;
   char voto;
   
   Tabela = (partido*)malloc(numpartidos * sizeof(partido));
@@ -24,10 +25,10 @@ int main() {
   do {
     scanf(" %s", legenda);
     if(!strcmp(legenda, "FIM")) break;
-		else {
-			scanf(" %d", &totaldeps);
-			tamstr = strlen(legenda);
-			Tabela[i].legenda = (char*)malloc(tamstr * sizeof(char));
+    else {
+      scanf(" %d", &totaldeps);
+      tamstr = strlen(legenda);
+      Tabela[i].legenda = (char*)malloc(tamstr * sizeof(char));
       strcpy(Tabela[i].legenda, legenda);
       Tabela[i].totaldeps = totaldeps;
       Tabela[i].votos_sim = 0;
@@ -46,8 +47,8 @@ int main() {
   do {
     scanf(" %s", legenda);
     if(!strcmp(legenda, "FIM")) break;
-		else {
-			scanf(" %c", &voto);
+    else {
+      scanf(" %c", &voto);
       for(j = 0; j < numpartidos; j++) {
         if(strcmp(Tabela[j].legenda, legenda) == 0) {
           i = j;
@@ -68,48 +69,48 @@ int main() {
   } while(1);
   
   printf("\n");
-	for(i = 0; i < numpartidos; i++) {
+  for(i = 0; i < numpartidos; i++) {
     totalvotosporpartido = 0;
     printf("%s: ", Tabela[i].legenda);
     
     printf("%d (Sim) ", Tabela[i].votos_sim);
     totalvotosporpartido += Tabela[i].votos_sim;
-		para_impressao = (float) 100 * Tabela[i].votos_sim / Tabela[i].totaldeps;
+    para_impressao = (float) 100 * Tabela[i].votos_sim / Tabela[i].totaldeps;
     printf("%2.0f%%, ", para_impressao);
     
     printf("%d (Nao) ", Tabela[i].votos_nao);
     totalvotosporpartido += Tabela[i].votos_nao;
-		para_impressao = (float) 100 * Tabela[i].votos_nao / Tabela[i].totaldeps;
+    para_impressao = (float) 100 * Tabela[i].votos_nao / Tabela[i].totaldeps;
     printf("%2.0f%%, ", para_impressao);
     
     printf("%d (Abst) ", Tabela[i].abstencoes);
     totalvotosporpartido += Tabela[i].abstencoes;
-		para_impressao = (float) 100 * Tabela[i].abstencoes / Tabela[i].totaldeps;
+    para_impressao = (float) 100 * Tabela[i].abstencoes / Tabela[i].totaldeps;
     printf("%2.0f%%, ", para_impressao);
 
-		faltosos = Tabela[i].totaldeps - totalvotosporpartido;
-		printf("%d (Faltas) ", faltosos);
-		para_impressao = (float) 100 * faltosos / Tabela[i].totaldeps;
-		printf("%2.0f%%\n", para_impressao);
+    faltosos = Tabela[i].totaldeps - totalvotosporpartido;
+    printf("%d (Faltas) ", faltosos);
+    para_impressao = (float) 100 * faltosos / Tabela[i].totaldeps;
+    printf("%2.0f%%\n", para_impressao);
 
-		totalsim += Tabela[i].votos_sim;
-		totalnao += Tabela[i].votos_nao;
-		totalabst += Tabela[i].abstencoes;
+    totalsim += Tabela[i].votos_sim;
+    totalnao += Tabela[i].votos_nao;
+    totalabst += Tabela[i].abstencoes;
   }
 
-	totalgeral = totalsim + totalnao + totalabst;
-	printf("\nTOTAL: ");
+  totalgeral = totalsim + totalnao + totalabst;
+  printf("\nTOTAL: ");
 
   printf("%d (Sim) ", totalsim);
-	para_impressao = (float) 100 * totalsim / totalgeral;
+  para_impressao = (float) 100 * totalsim / totalgeral;
   printf("%2.0f%%, ", para_impressao);
   
   printf("%d (Nao) ", totalnao);
-	para_impressao = (float) 100 * totalnao / totalgeral;
+  para_impressao = (float) 100 * totalnao / totalgeral;
   printf("%2.0f%%, ", para_impressao);
   
   printf("%d (Abst) ", totalabst);
-	para_impressao = (float) 100 * totalabst / totalgeral;
+  para_impressao = (float) 100 * totalabst / totalgeral;
   printf("%2.0f%%\n", para_impressao);
 
   return 0;
