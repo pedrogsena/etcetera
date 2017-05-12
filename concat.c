@@ -16,6 +16,7 @@ int main(int argc, char *argv[]){
     }
     saida[count]='\0';
     printf("%s\n",saida);
+    free(saida);
   } else if(argc == 2){
     if(!strcmp(argv[1],"help")) printf("Este programa concatena duas ou\n mais strings fornecidas como argumentos.\n");
     else printf("%s\n",argv[1]);
