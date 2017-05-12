@@ -4,6 +4,10 @@ For: unrelated stuff
 
 By: Pedro Gabriel Sena Cardoso
 
+5/11/2017, 22:33:
+
+concat.c added, README.md updated
+
 4/25/2017, 14:15:
 
 abreviando_pronomes.c added, README.md updated
